@@ -4,7 +4,7 @@ import Soap from '../models/soapSchema.js';
 // import path from 'path';
 // import { fileURLToPath } from 'url';
 import mammoth from 'mammoth';
-import officeparser from 'officeparser';
+import textract from 'textract';
 
 
 export const getSoaps = async (req, res) => {
@@ -46,11 +46,11 @@ console.log("fileType>>>",fileType);
       fileContent = result.value;
     } else if (fileType === 'doc') {
       fileContent = await new Promise((resolve, reject) => {
-        officeparser.parseBuffer(fileBuffer, 'doc', (err, data) => {
+        textract.fromBufferWithMime('application/msword', fileBuffer, (err, text) => {
           if (err) {
             return reject(err);
           }
-          resolve(data);
+          resolve(text);
         });
       });
     } else {
