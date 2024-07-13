@@ -8,7 +8,7 @@ dotenv.config();
 const app = express();
 const port = process.env.PORT || 5000;
 const corsOptions = {
-  origin: 'http://localhost:5173', // Replace with your specific origin
+  origin: '*', // Replace with your specific origin
   optionsSuccessStatus: 200
 };
 app.get('/', (req, res) => {
